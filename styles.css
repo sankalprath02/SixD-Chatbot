@@ -116,6 +116,21 @@ body {
   margin-top: 10px;
 }
 
+.dropdown-content button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff8c00;
+  border: none;
+  color: rgb(0, 0, 0);
+  margin-top: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.dropdown-content button:hover {
+  background-color: #e77f00;
+}
+
 .dropdown-content.show {
   display: block;
 }
