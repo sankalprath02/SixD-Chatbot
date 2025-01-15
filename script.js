@@ -2,9 +2,6 @@ const chatArea = document.getElementById('chat-area');
 const dropdownArrow = document.getElementById('dropdown-arrow');
 const dropdownContent = document.getElementById('dropdown-content');
 
-let awaitingEmail = false;
-let recipientEmail = '';
-
 function appendMessage(message, sender) {
   const messageDiv = document.createElement('div');
   messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
@@ -54,39 +51,33 @@ function selectSector(sector) {
   if (sector === 'Oil & Gas' || sector === 'Green Energy' || sector === 'Automobile') {
     contactMessage = `Contact Her:<br>  
       Alfisha Khan<br>  
-      <a class="email-link" href="javascript:void(0);" onclick="requestEmail('alfisha.khan@sixdindia.com')">alfisha.khan@sixdindia.com</a><br>  
+      <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('alfisha.khan@sixdindia.com')">alfisha.khan@sixdindia.com</a><br>  
       8800554157
     `;
   } else if (sector === 'Steel') {
     contactMessage = `Contact Her:<br>  
       Nidhi Bharti<br>  
-      <a class="email-link" href="javascript:void(0);" onclick="requestEmail('nidhi@sixdindia.com')">nidhi@sixdindia.com</a><br>  
+      <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('nidhi@sixdindia.com')">nidhi@sixdindia.com</a><br>  
       8800797883
     `;
   } else if (sector === 'Power' || sector === 'Cement') {
     contactMessage = `Contact Her:<br>  
       Manmeet Kaur<br>  
-      <a class="email-link" href="javascript:void(0);" onclick="requestEmail('manmeet.kaur@sixdindia.com')">manmeet.kaur@sixdindia.com</a><br>  
+      <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('manmeet.kaur@sixdindia.com')">manmeet.kaur@sixdindia.com</a><br>  
       8130110300
     `;
   } else if (sector === 'Others') {
     contactMessage = `Contact Him:<br>  
       Suraj Prakash Pandey<br>  
-      <a class="email-link" href="javascript:void(0);" onclick="requestEmail('suraj.pandey@sixdindia.com')">suraj.pandey@sixdindia.com</a><br>  
+      <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('suraj.pandey@sixdindia.com')">suraj.pandey@sixdindia.com</a><br>  
       8448097512
     `;
   }
   appendMessage(contactMessage, 'bot');
 }
 
-function requestEmail(email) {
-  awaitingEmail = true;
-  recipientEmail = email;
-  appendMessage("Please enter your email ID to proceed:", 'bot');
-}
-
-function openComposeEmail(email, userEmail) {
-  const mailUrl = `https://mail.google.com/mail/?view=cm&to=${email}&from=${encodeURIComponent(userEmail)}`;
+function openComposeEmail(email) {
+  const mailUrl = `https://mail.google.com/mail/?view=cm&to=${email}`;
   window.open(mailUrl, '_blank');
   appendMessage("The email compose tab has been opened. Please check.", 'bot');
 }
@@ -96,13 +87,7 @@ function sendMessage() {
   const message = userInput.value.trim();
   if (message) {
     appendMessage(message, 'user');
-    if (awaitingEmail) {
-      openComposeEmail(recipientEmail, message);
-      awaitingEmail = false;
-      recipientEmail = '';
-    } else {
-      appendMessage('I am just a bot. How can I assist you?', 'bot');
-    }
+    appendMessage('I am just a bot. How can I assist you?', 'bot');
     userInput.value = '';
   }
 }
